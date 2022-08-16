@@ -5,10 +5,18 @@ import * as sigUtil from "@metamask/eth-sig-util";
 import * as ethUtil from "ethereumjs-util";
 import { Form, FormInput, FormResult, FormSubmit } from "./Form";
 import { useState } from "react";
-import bcrypt from "bcryptjs";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from "./Components/Navbar/Navbar";
 import Sidebar from "./Components/Sidebar/Sidebar";
+import dotenv from "dotenv";
+import main from './main.png';
+
+function Maintain(){
+  return <img src={main} alt="main"/>
+}
+
+dotenv.config();
+
 
 const requestPublicKey = (web3, account) => {
     return web3.send("eth_getEncryptionPublicKey", [account]);
@@ -28,8 +36,9 @@ const decrypt = async (web3, account, text) => {
     return result;
 };
 
-const salt = bcrypt.genSaltSync(10);
-// const hash = bcrypt.hashSync(req)
+
+
+
 export default function App() {
     const { connect, metaState } = useMetamask();
     const [publicKey, setPublicKey] = useState("");
@@ -46,7 +55,11 @@ export default function App() {
     <div className="App">
       <Navbar toggle={toggle}/>
       <Sidebar isOpen={isOpen} toggle={toggle}/>
-      <h1>UNDER CONSTRUCTION!</h1>
+      <div>
+        <Maintain />
+        
+      </div>
+      {/* <h1>UNDER CONSTRUCTION!</h1>
       <h1>WORK IN PROGRESS</h1>
       <h1>ENCRYPTION/DECRYPTION DOES NOT INTERACT WITH BLOCKCHAIN</h1>
       <h2>Encryption/Decryption with Metamask</h2>
@@ -95,19 +108,21 @@ export default function App() {
           <br />
           <hr />
           <br />
-          <Form onSubmit={(msg2) => bcrypt.hashSync(msg2, salt)}>
+          <p>crypt</p> */}
+          {/* <Form onSubmit={(msg2) => }>
             <FormInput placeholder="message"/>
             <FormSubmit disabled={!publicKey}>Encrypt</FormSubmit>
             <FormResult />
           </Form>
-          {/* <Form onSubmit={(msg2) => bcrypt.compare(msg2, msg)}>
+          <p>decrypt </p>
+          <Form onSubmit={(msg3) => }>
             <FormInput placeholder="encrypted message"/>
             <FormSubmit >Decrypt</FormSubmit>
             <FormResult />
           </Form> */}
-          <br />
+          {/* <br />
           <hr />
           <br />
-        </>)}
+        </>)} */}
     </div>);
 }
